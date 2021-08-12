@@ -2,11 +2,18 @@ import { connect } from 'react-redux';
 
 const Response = props => {
   const res = props.sentiments.result;
+  const polarity = res ? res.polarity : null;
 
-  return (<>
-    <div>{res ? res.polarity : ""}</div>
-    <div>{res ? res.type : ""}</div>
-  </>);
+  let classes = "text-center text-3xl ";
+  if (polarity > 0) {
+    classes += "text-green-500";
+  } else if (polarity < 0) {
+    classes += "text-red-500";
+  }
+
+  return (<div>
+    <div className={classes}>{res ? res.polarity : ""}</div>
+  </div>);
 }
 
 const mapStateToProps = state => {
