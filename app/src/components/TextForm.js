@@ -1,12 +1,15 @@
 import { updateForm } from "../actions/formActions";
+import { sendText } from "../actions/apiActions";
 import { connect } from 'react-redux';
 
 const TextForm = (props) => {
-  return (
+  const { updateForm, formText, sendText } = props;
+  return (<>
     <textarea
-    value={props.formText}
-    onChange={(ev) => props.updateForm(ev.target.value)}></textarea>
-  );
+    value={formText}
+    onChange={(ev) => updateForm(ev.target.value)}></textarea>
+    <input type="button" value="Submit" onClick={() => sendText(formText)} />
+  </>);
 }
 
 const mapStateToProps = (state) => {
@@ -15,4 +18,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps, { updateForm })(TextForm);
+export default connect(mapStateToProps, { updateForm, sendText })(TextForm);
